@@ -1,0 +1,470 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_pmAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      }
+    ],
+    "name": "getClaimAmount",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "totalClaimableAmount",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      }
+    ],
+    "name": "getCurrentFundingRate",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      }
+    ],
+    "name": "getFundingPaymentAmount",
+    "outputs": [
+      {
+        "internalType": "int256",
+        "name": "fundingPayment",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      }
+    ],
+    "name": "getListOrderPending",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bool",
+            "name": "isBuy",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "quantity",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "partialFilled",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint128",
+            "name": "pip",
+            "type": "uint128"
+          },
+          {
+            "internalType": "uint16",
+            "name": "leverage",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint8",
+            "name": "isReduce",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint64",
+            "name": "blockNumber",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint256",
+            "name": "orderIdx",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "orderId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct PositionHouseStorage.LimitOrderPending[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      },
+      {
+        "internalType": "enum PositionHouseStorage.PnlCalcOption",
+        "name": "_calcOption",
+        "type": "uint8"
+      }
+    ],
+    "name": "getMaintenanceDetail",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "maintenanceMargin",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "marginBalance",
+        "type": "int256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "marginRatio",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      }
+    ],
+    "name": "getNextFundingTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      },
+      {
+        "internalType": "enum PositionHouseStorage.PnlCalcOption",
+        "name": "_pnlCalcOption",
+        "type": "uint8"
+      }
+    ],
+    "name": "getPositionAndUnreliablePnl",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "int256",
+            "name": "quantity",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "margin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "openNotional",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int128",
+            "name": "lastUpdatedCumulativePremiumFraction",
+            "type": "int128"
+          },
+          {
+            "internalType": "uint64",
+            "name": "blockNumber",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint16",
+            "name": "leverage",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint8",
+            "name": "__dummy",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Position.Data",
+        "name": "position",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint256",
+        "name": "positionNotional",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "unrealizedPnl",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      },
+      {
+        "internalType": "enum PositionHouseStorage.PnlCalcOption",
+        "name": "_pnlCalcOption",
+        "type": "uint8"
+      },
+      {
+        "components": [
+          {
+            "internalType": "int256",
+            "name": "quantity",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "margin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "openNotional",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int128",
+            "name": "lastUpdatedCumulativePremiumFraction",
+            "type": "int128"
+          },
+          {
+            "internalType": "uint64",
+            "name": "blockNumber",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint16",
+            "name": "leverage",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint8",
+            "name": "__dummy",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct Position.Data",
+        "name": "_oldPosition",
+        "type": "tuple"
+      }
+    ],
+    "name": "getPositionNotionalAndUnrealizedPnl",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "positionNotional",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "unrealizedPnl",
+        "type": "int256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionManager",
+        "name": "_positionManager",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_trader",
+        "type": "address"
+      }
+    ],
+    "name": "getRemovableMargin",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IPositionHouse",
+        "name": "_positionHouse",
+        "type": "address"
+      },
+      {
+        "internalType": "contract IPositionHouseConfigurationProxy",
+        "name": "_positionHouseConfigurationProxy",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "positionHouse",
+    "outputs": [
+      {
+        "internalType": "contract IPositionHouse",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "positionHouseConfigurationProxy",
+    "outputs": [
+      {
+        "internalType": "contract IPositionHouseConfigurationProxy",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
