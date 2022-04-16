@@ -32,7 +32,7 @@ export const checkAndLiquidate = async (pmAddress: string, trader: string) => {
   }
   
   const { marginRatio } = await getMaintenanceDetail(pmAddress, trader)
-  console.log(`${getMarketLabel(pmAddress)} \t ${trader} \t ${getBalanceNumber(rawPosition[0])} \t\t ${getBalanceNumber(unrealizedPnl)} \t\t ${marginRatio.toString()}`)
+  console.log(`${getMarketLabel(pmAddress)} \t ${trader} \t ${getBalanceNumber(rawPosition[0])} \t\t ${rawPosition[5]} \t\t ${getBalanceNumber(unrealizedPnl)} \t\t ${marginRatio.toString()}`)
 
   const partialLiquidationRatio = await getPartialLiquidationRatio()
   if (canLiquidate(marginRatio, partialLiquidationRatio)) {
