@@ -6,6 +6,7 @@ import { getMaintenanceDetail, getPositionNotionalAndUnrealizedPnl } from './src
 import { getBalanceNumber } from './src/utils/number'
 import getSender from './src/utils/getSender'
 import liquidate from './src/utils/position/signed/liquidate'
+import getMarketLabel from './src/utils/getMarketLabel'
 import configs from './config'
 
 const canLiquidate = (
@@ -31,7 +32,7 @@ export const checkAndLiquidate = async (pmAddress: string, trader: string) => {
   }
   
   const { marginRatio } = await getMaintenanceDetail(pmAddress, trader)
-  console.log(`[${trader}:${pmAddress}] UnrealizedPnl: ${unrealizedPnl.toString()} - Ratio: ${marginRatio.toString()}`)
+  console.log(`[${getMarketLabel(pmAddress)}:${trader}] UnrealizedPnl: ${unrealizedPnl.toString()} - Ratio: ${marginRatio.toString()}`)
 
   const partialLiquidationRatio = await getPartialLiquidationRatio()
   if (canLiquidate(marginRatio, partialLiquidationRatio)) {
