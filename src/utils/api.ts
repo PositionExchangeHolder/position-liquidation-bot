@@ -1,12 +1,15 @@
 import axios from 'axios'
 import configs from '../../config'
+import { PositionResponse } from './types'
 
-export const getAllPositions = async () => {
+export const getAllPositions = async (
+  first = 200
+): Promise<PositionResponse[] | undefined> => {
   try {
     const api = configs.api.POSITION_DERIVATIVE_SUBGRAPH
     const query = `
       {
-        positions {
+        positions(first: ${first}, orderBy: "updatedAt", orderDirection: "desc") {
           id
         }
       }
@@ -16,11 +19,12 @@ export const getAllPositions = async () => {
     }
 
     const res = await axios.post(api, { query }, { headers })
-    const positions = res.data?.data.positions
+    const positions: PositionResponse[] = res.data?.data.positions
 
     return positions
   }
   catch (error) {
     console.log(error)
+    return undefined
   }
 }
