@@ -69,3 +69,4 @@ $ npm run start
 | POSITION_HOUSE_CONFIGURATION_PROXY | address | No | | 0x460f4aab09f2f3802d1a988935589fc1d5f64b14 |
 
 ## Note
+Liquidation is a hard job. Be careful 😉
