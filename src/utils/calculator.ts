@@ -14,7 +14,7 @@ export const calculateFeeToLiquidator = (
   
   if (
     marginRatio.gte(partialLiquidationRatio)
-    && partialLiquidationRatio.lt(BN_ONE_HUNDRED)
+    && marginRatio.lt(BN_ONE_HUNDRED)
   ) {
     const marginToVault = calculatePartialLiquidateMargin(positionMargin, liquidationFeeRatio)
     const liquidationPenalty = marginToVault
