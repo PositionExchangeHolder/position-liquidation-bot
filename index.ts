@@ -4,8 +4,11 @@ import { getAllPositions } from './src/utils/api'
 import { convertPrivateKeyToAddress } from './src/utils/getSender'
 
 export const run = async () => {
-  if (configs.sender.PRIVATE_KEY) {
-    console.log(`[${new Date()}] 👋 ${convertPrivateKeyToAddress(configs.sender.PRIVATE_KEY)}`)
+  console.log(`Enable Bot: ${configs.bot.ENABLE}`)
+  if (configs.bot.ENABLE) {
+    if (configs.sender.PRIVATE_KEY) {
+      console.log(`[${new Date()}] 👋 ${convertPrivateKeyToAddress(configs.sender.PRIVATE_KEY)}`)
+    }
   }
   
   const positions = await getAllPositions()

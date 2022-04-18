@@ -2,7 +2,8 @@ import 'dotenv/config'
 
 const bot = {
   ENABLE: process.env.BOT_ENABLE || false,
-  MINIMUM_PROFIT_BUSD: Number(process.env.BOT_MINIMUM_PROFIT_BUSD) || 1
+  MINIMUM_PROFIT_BUSD: Number(process.env.BOT_MINIMUM_PROFIT_BUSD) || 1,
+  CRON_TIME: process.env.BOT_CRON_TIME || '*/5 * * * *'
 }
 
 const sender = {

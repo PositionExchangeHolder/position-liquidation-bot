@@ -1,6 +1,7 @@
 import cron from 'node-cron'
 import { run } from '.'
+import configs from './config'
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule(configs.bot.CRON_TIME, () => {
   run()
 })
