@@ -16,7 +16,7 @@ const transaction = {
 }
 
 const api = {
-  POSITION_DERIVATIVE_SUBGRAPH: process.env.POSITION_DERIVATIVE_SUBGRAPH || ''
+  POSITION_DERIVATIVE_SUBGRAPH: process.env.POSITION_DERIVATIVE_SUBGRAPH || 'https://api.thegraph.com/subgraphs/name/gafranslotteria/derivatives'
 }
 
 const web3 = {
