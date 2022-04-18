@@ -9,6 +9,7 @@ import { getPositionHouseContract } from '../contract'
  * int128 lastUpdatedCumulativePremiumFraction
  * uint64 blockNumber
  * uint16 leverage
+ * __dummy: 1
  * 
  * Ex:
  * [

@@ -9,6 +9,28 @@ import liquidate from './src/utils/position/signed/liquidate'
 import getMarketLabel from './src/utils/getMarketLabel'
 import configs from './config'
 
+const checkValidPosition = (rawPosition: any): boolean => {
+  const ZERO = new BigNumber(0)
+
+  const quantity = new BigNumber(rawPosition[0])
+  const margin =  new BigNumber(rawPosition[1])
+  const openNotional = new BigNumber(rawPosition[2])
+  const lastUpdatedCumulativePremiumFraction =  new BigNumber(rawPosition[3])
+  const blockNumber = new BigNumber(rawPosition[4])
+  const leverage = new BigNumber(rawPosition[5])
+
+  return (
+    quantity.isEqualTo(ZERO)
+      && margin.isEqualTo(ZERO)
+      && openNotional.isEqualTo(ZERO)
+      && lastUpdatedCumulativePremiumFraction.isEqualTo(ZERO)
+      && blockNumber.isEqualTo(ZERO)
+      && leverage.isEqualTo(ZERO)
+        ? false
+        : true
+  )
+}
+
 const canLiquidate = (
   marginRatio: BigNumber,
   partialLiquidationRatio: BigNumber
@@ -20,17 +42,22 @@ const isEnoughProfit = (
   currentProfit: BigNumber,
   minimumProfit = configs.bot.MINIMUM_PROFIT_BUSD
 ): boolean => {
-  return currentProfit.gte(new BigNumber(minimumProfit))
+  return currentProfit.gte(new BigNumber(minimumProfit).times(1e18))
 }
 
 export const checkAndLiquidate = async (pmAddress: string, trader: string) => {
   const rawPosition = await getRawPosition(pmAddress, trader)
-  const { unrealizedPnl } = await getPositionNotionalAndUnrealizedPnl(pmAddress, trader, rawPosition)
-  
-  if (unrealizedPnl.lte(new BigNumber(0))) {
+  const isValidPosition = checkValidPosition(rawPosition)
+
+  if (!isValidPosition) {
     return
   }
-  
+
+  const { unrealizedPnl } = await getPositionNotionalAndUnrealizedPnl(
+    pmAddress,
+    trader,
+    rawPosition
+  )
   const { marginRatio } = await getMaintenanceDetail(pmAddress, trader)
   const partialLiquidationRatio = await getPartialLiquidationRatio()
   const isCanLiquidate = canLiquidate(marginRatio, partialLiquidationRatio)
@@ -52,7 +79,7 @@ export const checkAndLiquidate = async (pmAddress: string, trader: string) => {
     console.log(`🔥 Liquidate Order ${pmAddress}:${trader}, profit = ${getBalanceNumber(profit)}`)
 
     if (isEnoughProfit(profit) && configs.bot.ENABLE) {
-      console.log(`🔥 Liquidating.....`)
+      console.log(`🔥 Liquidating ${pmAddress}:${trader} with $${getBalanceNumber(profit)} profit.....`)
       const sender = getSender(configs.sender.PRIVATE_KEY)
       await liquidate(sender, pmAddress, trader)
     }
