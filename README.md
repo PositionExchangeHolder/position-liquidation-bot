@@ -1,5 +1,5 @@
 # Position Liquidation Bot
-Bot to automatically liquidate undercollateralized [Position Exchange](position.exchange)'s positions
+Bot to automatically liquidate undercollateralized [Position Exchange](https://app.position.exchange/)'s positions
 
 ![Log](./docs/images/log.png)
 
