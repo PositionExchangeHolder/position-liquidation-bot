@@ -1,7 +1,9 @@
+import clc from 'cli-color'
 import configs from './config'
 import { checkAndLiquidate } from './main'
 import { getAllPositions } from './src/utils/api'
 import { convertPrivateKeyToAddress } from './src/utils/getSender'
+import { generatePositionHeader } from './src/utils/log'
 
 export const run = async () => {
   console.log(`Enable Bot: ${configs.bot.ENABLE}`)
@@ -13,9 +15,9 @@ export const run = async () => {
   
   const positions = await getAllPositions()
   if (positions !== undefined) {
-    console.log(`Found ${positions.length} positions`)
+    console.log(`Found ${clc.green(positions.length)} available positions`)
 
-    console.log('Market \t Trader \t\t\t\t\t Quantity \t Leverage \t UnrealizedPnl \t MarginRatio \t Liquidate')
+    console.log(generatePositionHeader())
     positions.forEach(async (position: any) => {
       const [pmAddress, trader] = position.id.split(':')
       await checkAndLiquidate(pmAddress, trader)

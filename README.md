@@ -1,6 +1,8 @@
 # Position Liquidation Bot
 Bot to automatically liquidate undercollateralized Position Exchange's positions
 
+![Log](./docs/images/log.png)
+
 ## How It Works?
 
 ## Installation

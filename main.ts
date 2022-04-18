@@ -6,8 +6,8 @@ import { getMaintenanceDetail, getPositionNotionalAndUnrealizedPnl } from './src
 import { getBalanceNumber } from './src/utils/number'
 import getSender from './src/utils/getSender'
 import liquidate from './src/utils/position/signed/liquidate'
-import getMarketLabel from './src/utils/getMarketLabel'
 import configs from './config'
+import { generatePositionLog } from './src/utils/log'
 
 const checkValidPosition = (rawPosition: any): boolean => {
   const ZERO = new BigNumber(0)
@@ -61,7 +61,17 @@ export const checkAndLiquidate = async (pmAddress: string, trader: string) => {
   const { marginRatio } = await getMaintenanceDetail(pmAddress, trader)
   const partialLiquidationRatio = await getPartialLiquidationRatio()
   const isCanLiquidate = canLiquidate(marginRatio, partialLiquidationRatio)
-  console.log(`${getMarketLabel(pmAddress)} \t ${trader} \t ${getBalanceNumber(rawPosition[0])} \t\t ${rawPosition[5]} \t\t ${getBalanceNumber(unrealizedPnl)} \t\t ${marginRatio.toString()} \t\t ${isCanLiquidate}`)
+  console.log(
+    generatePositionLog(
+      pmAddress,
+      trader,
+      rawPosition[0],
+      rawPosition[5],
+      unrealizedPnl,
+      marginRatio,
+      isCanLiquidate
+    )
+  )
 
   if (isCanLiquidate) {
     const { liquidationFeeRatio } = await getLiquidationFeeAndPenaltyRatio()
@@ -76,7 +86,16 @@ export const checkAndLiquidate = async (pmAddress: string, trader: string) => {
       manualMargin
     )
 
-    console.log(`🔥 Liquidate Order ${pmAddress}:${trader}, profit = ${getBalanceNumber(profit)}`)
+    console.log(generatePositionLog(
+      pmAddress,
+      trader,
+      rawPosition[0],
+      rawPosition[5],
+      unrealizedPnl,
+      marginRatio,
+      isCanLiquidate,
+      profit
+    ))
 
     if (isEnoughProfit(profit) && configs.bot.ENABLE) {
       console.log(`🔥 Liquidating ${pmAddress}:${trader} with $${getBalanceNumber(profit)} profit.....`)
