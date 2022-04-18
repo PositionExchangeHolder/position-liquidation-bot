@@ -1,9 +1,18 @@
 # Position Liquidation Bot
-Bot to automatically liquidate undercollateralized Position Exchange's positions
+Bot to automatically liquidate undercollateralized [Position Exchange](position.exchange)'s positions
 
 ![Log](./docs/images/log.png)
 
 ## How It Works?
+
+### Calculating Fee to Liquidator
+``If (marginRatio >= PARTIAL_LIQUIDATION_RATIO && marginRatio < 100)``
+
+![Fee to liquidator formula](https://latex.codecogs.com/svg.image?feeToLiquidator&space;=&space;\frac{positionMargin&space;&plus;&space;(100&space;-&space;liquidationFeeRatio)}{2&space;*&space;100})
+
+``Else`` (FullyLiquidated)
+
+![Fee to liquidator formula](https://latex.codecogs.com/svg.image?feeToLiquidator&space;=&space;\frac{\left&space;(&space;positionMargin&space;&plus;&space;manualMargin&space;\right&space;)&space;*&space;liquidationFeeRatio}{2&space;*&space;100})
 
 ## Installation
 Require: ``Nodejs version 16 or later``
