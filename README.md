@@ -5,6 +5,31 @@ Bot to automatically liquidate undercollateralized [Position Exchange](https://a
 
 ## How It Works?
 
+### Sequence diagram
+```mermaid
+sequenceDiagram
+    participant Bot as Liquidator Bot
+    participant Subgraph as Subgraph API
+    participant pViewer as PositionHouseViewer
+    participant pConfiguration as PositionHouseConfiguration
+    participant pHouse as PositionHouse
+    
+    Bot->>+Subgraph: Get available positions
+    Subgraph-->>-Bot: availablePositions
+    loop Loop through all available positions
+        Bot->>+pViewer: getMaintenanceDetail(pmAddress, trader)
+        pViewer-->>-Bot: marginRatio
+        Bot->>+pConfiguration: getPartialLiquidationRatio()
+        pConfiguration-->>-Bot: partialLiquidationRatio
+
+        alt marginRatio >= partialLiquidationRatio
+            Bot->>+pHouse: liquidate(pmAddress, trader)
+            pHouse-->>-Bot: Take Liquidation Fee 🤑
+        end
+    end
+            
+```
+
 ### Calculating Fee to Liquidator
 ``If (marginRatio >= PARTIAL_LIQUIDATION_RATIO && marginRatio < 100)``
 
