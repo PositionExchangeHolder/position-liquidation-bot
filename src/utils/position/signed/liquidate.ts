@@ -9,9 +9,16 @@ const liquidate = async (
   victim: string
 ): Promise<string> => {
   const positionHouse = getPositionHouseContract()
-  const data = positionHouse.methods.liquidate(pmAddress, victim).encodeABI()
+  const data = positionHouse.methods.liquidate(
+    pmAddress,
+    victim
+  ).encodeABI()
 
-  const txHash = await sendSignedTransaction(sender, configs.address.POSITION_HOUSE_PROXY, data)
+  const txHash = await sendSignedTransaction(
+    sender,
+    configs.address.POSITION_HOUSE_PROXY,
+    data
+  )
 
   return txHash
 }
