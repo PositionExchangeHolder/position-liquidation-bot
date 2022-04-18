@@ -21,7 +21,7 @@ $ npm run start
 
 ## Configurations
 | Enviroment Variable | Type | Required | Description | Default |
-|---------------------|------|----------|-------------|---------|
+|:--------------------|:-----|:---------|:------------|:--------|
 | PRIVATE_KEY | sender | ``Yes`` | | - |
 | POSITION_DERIVATIVE_SUBGRAPH | api | ``Yes`` | | - |
 | ENABLE | bot | No | | false |
